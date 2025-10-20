@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenbrier Maxion - Trilha de Jogos</title>
+    <link rel="stylesheet" href="global_style.css">
+</head>
+<body>
+
+    <div id="main-menu" class="screen active">
+        <div class="menu-container">
+            <img src="assets/logo_gbmx.png" alt="Logo Greenbrier Maxion" class="logo">
+            <button id="play-trail-btn">Jogar trilha</button>
+            <button id="select-game-btn">Selecionar jogo</button>
+        </div>
+    </div>
+
+    <div id="game-selection" class="screen">
+        <div class="menu-container">
+            <h1>Selecionar Jogo</h1>
+            <button class="game-choice-btn" data-src="JogoDaMemoria_EST/index.html">Jogo da Memória: Analista</button>
+            <button class="game-choice-btn" data-src="JogoADM/index.html">Quiz: Administração de TI</button>
+            <button class="game-choice-btn" data-src="JogoInfra/index.html">Quiz: Infraestrutura</button>
+            <button class="game-choice-btn" data-src="JogoDev/index.html">Jogo: Desenvolvimento</button>
+            <button class="game-choice-btn" data-src="JogoCiber/index.html">Caça-Palavras: Cibersegurança</button>
+            
+            <button id="back-to-main-menu-btn" class="secondary" style="margin-top: 20px;">Voltar ao Menu</button>
+        </div>
+    </div>
+
+    <div id="game-container" class="screen">
+        <button id="quit-game-btn">Sair do Jogo</button>
+        <iframe id="game-frame" src="about:blank"></iframe>
+    </div>
+
+    <div id="final-score-screen" class="screen">
+        <div class="menu-container">
+            <h1>Trilha Concluída!</h1>
+            <p>Você completou todos os desafios. Confira seu desempenho:</p>
+            
+            <ul id="score-breakdown">
+                </ul>
+
+            <h3>Pontuação Total:</h3>
+            <h2 id="final-total-score">000</h2>
+            
+            <button id="return-to-menu-btn">Voltar ao Menu Principal</button>
+        </div>
+    </div>
+
+    <script src="main_script.js"></script>
+</body>
+</html>

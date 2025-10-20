@@ -1,0 +1,701 @@
+/*
+================================================
+ARQUIVO DE ESTILO GLOBAL
+Este arquivo substitui todos os outros .css
+Salvar como: JogoEstagiários/global_style.css
+================================================
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* --- 1. ESTILOS GERAIS (Variáveis e Padrões) --- */
+:root {
+    --cor-principal: #00843E; /* Verde Greenbrier */
+    --cor-secundaria: #005a2b; /* Verde Escuro */
+    --cor-fundo: #f0f7f2;      /* Verde bem claro (novo) */
+    --cor-fundo-jogo: #ffffff; /* Fundo branco para os jogos */
+    --cor-texto: #333333;
+    --cor-clara: #ffffff;
+    --cor-erro: #dc3545;
+    --cor-sucesso: #198754;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 20px;
+    overflow: hidden;
+}
+
+h1, h2, h3 {
+    color: var(--cor-principal);
+}
+
+/* --- 2. ESTILOS DO MENU PRINCIPAL E TELAS --- */
+.screen {
+    display: none;
+    width: 100%;
+    max-width: 1200px;
+    height: 95vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    background-color: var(--cor-clara);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+}
+
+.logo {
+    max-width: 300px;
+    margin-bottom: 30px;
+}
+
+/* Botões Padronizados */
+button, .btn {
+    width: 280px;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--cor-clara);
+    background-color: var(--cor-principal);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.5;
+}
+
+button:hover, .btn:hover {
+    background-color: var(--cor-secundaria);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+button:active, .btn:active {
+    transform: translateY(1px);
+}
+
+/* Botões menores ou secundários */
+button.secondary, .btn.secondary {
+    background-color: #f0f0f0;
+    color: var(--cor-texto);
+    border: 2px solid #ddd;
+}
+
+button.secondary:hover, .btn.secondary:hover {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+/* Botão de Voltar/Sair */
+#quit-game-btn, #back-to-main-menu-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    z-index: 100;
+    background-color: var(--cor-clara);
+    color: var(--cor-principal);
+    border: 2px solid var(--cor-principal);
+}
+
+#quit-game-btn:hover, #back-to-main-menu-btn:hover {
+    background-color: var(--cor-principal);
+    color: var(--cor-clara);
+}
+
+/* --- 3. CONTAINER DO IFRAME DO JOGO --- */
+#game-container {
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+#game-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: var(--cor-fundo);
+}
+
+/* --- 4. MODAIS PADRONIZADOS --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000; transition: opacity 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal-content {
+    background-color: var(--cor-clara);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal-content h1 { margin-top: 0; }
+.modal-content p { font-size: 1.1em; margin-bottom: 25px; }
+.modal-buttons { display: flex; gap: 15px; justify-content: center; }
+
+/* Estilo para Pontuação Final */
+.final-score {
+    font-size: 3.5em;
+    font-weight: 700;
+    color: var(--cor-secundaria);
+    margin: 10px 0 30px;
+}
+
+/* --- 5. TELA DE SCORE FINAL --- */
+#final-score-screen .menu-container {
+    width: 90%;
+    max-width: 600px;
+}
+
+#score-breakdown {
+    list-style: none;
+    padding: 0;
+    width: 80%;
+    margin: 20px auto;
+}
+
+#score-breakdown li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#score-breakdown li span:first-child {
+    font-weight: bold;
+    color: var(--cor-texto);
+}
+
+#score-breakdown li span:last-child {
+    font-weight: bold;
+    color: var(--cor-principal);
+}
+
+#final-total-score {
+    font-size: 2.5em;
+    color: var(--cor-secundaria);
+    border-top: 2px solid var(--cor-principal);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+
+/* --- 6. LAYOUT GERAL DO JOGO (Wrapper e Painel) --- */
+.game-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: 95vh;
+    background-color: var(--cor-fundo-jogo);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.game-container {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.game-container header {
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.game-container header h1 { margin: 0 0 10px 0; }
+.game-container header p { font-size: 1.1em; margin: 0; }
+
+.stats-panel {
+    width: 280px;
+    background-color: #f8f9fa;
+    border-left: 1px solid #e0e0e0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    box-sizing: border-box;
+}
+
+.stat-item {
+    width: 100%;
+    text-align: center;
+    background-color: var(--cor-clara);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.stat-item h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: var(--cor-texto);
+}
+.stat-item p {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--cor-principal);
+    letter-spacing: 1px;
+}
+
+/* --- 7. ESTILOS ESPECÍFICOS: JOGO DA MEMÓRIA --- */
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    perspective: 1000px;
+}
+
+.memory-card {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+.front-face, .back-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 2px solid transparent;
+}
+
+.back-face {
+    background: var(--cor-principal);
+    transform: rotateY(0deg);
+    background-image: url('JogoDaMemoria_EST/logo_gbmx.png');
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.front-face {
+    color: var(--cor-texto);
+    font-size: 0.9em;
+    line-height: 1.3;
+    transform: rotateY(180deg);
+    background-color: #e9ecef;
+}
+
+/* Cores dos pares */
+.front-face.color-1 { background-color: #4CAF50; color: white; }
+.front-face.color-2 { background-color: #2196F3; color: white; }
+.front-face.color-3 { background-color: #FFC107; color: #333; }
+.front-face.color-4 { background-color: #E91E63; color: white; }
+.front-face.color-5 { background-color: #673AB7; color: white; }
+.front-face.color-6 { background-color: #00BCD4; color: white; }
+.front-face.color-7 { background-color: #FF9800; color: white; }
+.front-face.color-8 { background-color: #795548; color: white; }
+
+/* Feedback de acerto/erro */
+.memory-card.correct .front-face {
+    border-color: var(--cor-sucesso);
+    box-shadow: 0 0 10px var(--cor-sucesso);
+}
+.memory-card.incorrect .front-face {
+    border-color: var(--cor-erro);
+    box-shadow: 0 0 10px var(--cor-erro);
+}
+
+/* --- 8. ESTILOS ESPECÍFICOS: QUIZ (ADM) --- */
+.quiz-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fdfdfd;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+#question-text {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--cor-secundaria);
+    min-height: 100px;
+    margin-bottom: 25px;
+}
+
+.answer-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.answer-btn {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.1em;
+    font-weight: 400;
+    text-align: left;
+    background-color: var(--cor-clara);
+    color: var(--cor-texto);
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.answer-btn:hover:not(:disabled) {
+    border-color: var(--cor-principal);
+    background-color: #f7fffb;
+    transform: none; /* Reseta o hover padrão */
+    box-shadow: none; /* Reseta o hover padrão */
+}
+
+.answer-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Feedback de resposta */
+.answer-btn.correct {
+    background-color: var(--cor-sucesso);
+    border-color: var(--cor-sucesso);
+    color: white;
+}
+.answer-btn.incorrect {
+    background-color: var(--cor-erro);
+    border-color: var(--cor-erro);
+    color: white;
+}
+
+/* Feedback Overlay */
+.feedback-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-in-out;
+    pointer-events: none;
+}
+.feedback-overlay.show { opacity: 1; visibility: visible; }
+.feedback-overlay.correct-feedback { background-color: rgba(76, 175, 80, 0.4); }
+.feedback-overlay.incorrect-feedback { background-color: rgba(220, 53, 69, 0.4); }
+.feedback-overlay #feedback-icon {
+    font-size: 8em;
+    color: white;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease-in-out 0.2s;
+}
+.feedback-overlay.show #feedback-icon { opacity: 1; transform: scale(1); }
+
+
+/* --- 9. ESTILOS ESPECÍFICOS: TOPOLOGIA (INFRA) --- */
+.game-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 30px auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.game-stats > div {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--cor-principal);
+}
+.game-stats strong {
+    color: var(--cor-texto);
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
+    margin-top: 30px;
+    position: relative;
+    max-width: 900px;
+}
+
+.device {
+    background-color: var(--cor-clara);
+    border: 3px dashed #ccc;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    cursor: grab;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.device.conectado {
+    border-style: solid;
+    border-color: var(--cor-sucesso);
+    background-color: #f7fffb;
+}
+.device:active {
+    cursor: grabbing;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+.device img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    -webkit-user-drag: none; /* Impede arrastar a imagem */
+}
+.device h3 {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+.device p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+    min-height: 50px;
+}
+
+/* Feedback Topologia */
+.destaque {
+    box-shadow: 0 0 0 4px var(--cor-principal);
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 132, 62, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 132, 62, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 132, 62, 0); }
+}
+.erro-shake {
+    animation: shake 0.5s;
+    background-color: #fff8f8;
+    border-color: var(--cor-erro);
+}
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+svg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+.cabo {
+  stroke: var(--cor-principal);
+  stroke-width: 5;
+  fill: none;
+}
+#mensagem { 
+    margin-top: 20px; 
+    font-weight: bold; 
+    text-align: center; 
+    min-height: 24px;
+    font-size: 1.2em;
+}
+
+
+/* --- 10. ESTILOS ESPECÍFICOS: JOGO DO TREM (DEV) --- */
+.game-dev-container {
+    width: 100%;
+    overflow-x: hidden; /* Garante que o trem não crie scroll */
+    padding: 2rem;
+}
+
+.dev-header {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.headerButtons {
+    padding-top: 1rem;
+    display: flex;
+    gap: 25px;
+}
+
+.trajeto {
+    position: relative;
+    width: 100%; /* Ocupa a largura total */
+    height: 150px; /* Altura da pista */
+    background-color: #d2b48c; /* Cor de "terra" */
+    border-top: 5px solid #a0522d;
+    border-bottom: 5px solid #a0522d;
+    margin-top: 50px;
+    box-sizing: border-box;
+    overflow: hidden; /* Esconde o que sai dos trilhos */
+}
+
+/* Dormentes */
+.trajeto::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    transform: translateY(-50%);
+    background: repeating-linear-gradient(90deg,
+            #8b4513 0px, #8b4513 20px,
+            transparent 20px, transparent 60px);
+}
+/* Trilhos */
+.trajeto::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent 0%, transparent 40px,
+            #4a4a4a 40px, #4a4a4a 44px, /* Trilho 1 */
+            transparent 44px, transparent 101px,
+            #4a4a4a 101px, #4a4a4a 105px, /* Trilho 2 */
+            transparent 105%, transparent 100%);
+}
+
+#trem {
+    position: absolute;
+    left: 0; /* Posição inicial */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    transition: left 1s linear; /* Animação do movimento */
+    z-index: 10;
+}
+
+.locomotivaDiv { height: 100px; }
+.locomotiva { height: 100%; }
+
+.vagoes {
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+.vagao {
+    height: 100%;
+    margin-left: -15px; /* Sobreposição */
+}
+.invisivel { display: none; }
+
+#chegada {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    height: 100px;
+    z-index: 5;
+}
+
+.imagesDiv {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    height: 150px; /* Altura fixa para os "códigos" */
+    align-items: center;
+}
+.printCode {
+    height: 100%;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+/* --- 11. ESTILOS DINÂMICOS (NOVO) --- */
+
+/* Estilo para o botão de Dica quando estiver pronto */
+#hint-button.ready {
+    background-color: var(--cor-sucesso); /* Verde */
+    color: var(--cor-clara);
+    border-color: var(--cor-sucesso);
+    animation: pulse-green 1.5s infinite;
+}
+
+#hint-button.ready:hover {
+    background-color: #157347; /* Verde mais escuro no hover */
+}
+
+/* Animação de pulso */
+@keyframes pulse-green {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 10px rgba(25, 135, 84, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(25, 135, 84, 0);
+    }
+}

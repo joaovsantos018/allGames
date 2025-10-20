@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #C7E0C5;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- ESTILOS GERAIS PARA MODAIS --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal-content h1 {
+    color: #00843E;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 2.2em;
+    line-height: 1.2;
+}
+
+.modal-content p {
+    color: #555;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+/* NOVO: Estilo para destacar os dados finais */
+.modal-content p strong {
+    color: #00843E;
+    font-weight: 900;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+#start-button, .retry-button, #review-button {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid #000;
+    background-color: #fff;
+    color: #333;
+}
+
+#start-button:hover, .retry-button:hover {
+    background-color: #00843E;
+    color: #fff;
+    border-color: #00843E;
+}
+
+#review-button {
+    background-color: #00843E;
+    color: #fff;
+    border-color: #00843E;
+}
+
+#review-button:hover {
+    background-color: #006a31;
+    border-color: #006a31;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+/* --- FIM DOS ESTILOS DE MODAL --- */
+
+
+.game-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.game-container {
+    flex: 3;
+    min-width: 500px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.stats-panel {
+    flex: 1;
+    min-width: 220px;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    color: #00843E;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat-item {
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-item h2 { margin: 0 0 5px 0; font-size: 1.2em; font-weight: normal; }
+.stat-item p { margin: 0; font-size: 2em; font-weight: bold; }
+
+#restart-button, #hint-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+#restart-button {
+    background-color: #00843E;
+}
+
+#restart-button:hover {
+    color: #000;
+    background-color: #fff;
+    border: 2px solid #000;
+}
+
+#hint-button {
+    background-color: #2196F3;
+}
+#hint-button:hover {
+    background-color: #1769aa;
+}
+#hint-button:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+header h1 { color: #00843E; margin: 0; }
+header p { color: #555; margin-top: 8px; margin-bottom: 25px; }
+
+#attempts-counter.warning { color: #FFC107; }
+#attempts-counter.danger { color: #dc3545; }
+
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    perspective: 1000px;
+}
+
+.memory-card {
+    background-color: transparent;
+    width: 100%;
+    height: 140px;
+    border-radius: 10px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+}
+
+.memory-card.flip { transform: rotateY(180deg); }
+
+.front-face,
+.back-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 2px solid transparent;
+}
+
+.back-face {
+    background: #00843E;
+    transform: rotateY(0deg);
+    background-image: url('logo_gbmx.png');
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.front-face {
+    color: #333;
+    font-size: 0.9em;
+    line-height: 1.3;
+    transform: rotateY(180deg);
+}
+
+.front-face.color-1 { background-color: #4CAF50; color: white; }
+.front-face.color-2 { background-color: #2196F3; color: white; }
+.front-face.color-3 { background-color: #FFC107; color: #333; }
+.front-face.color-4 { background-color: #E91E63; color: white; }
+.front-face.color-5 { background-color: #9C27B0; color: white; }
+.front-face.color-6 { background-color: #00BCD4; color: white; }
+.front-face.color-7 { background-color: #FF5722; color: white; }
+.front-face.color-8 { background-color: #795548; color: white; }
+
+
+@media (max-width: 900px) {
+    .game-container { min-width: 100%; order: 2; }
+    .stats-panel { flex-direction: row; flex-wrap: wrap; width: 100%; min-width: 100%; order: 1; }
+    .stat-item, #restart-button, #hint-button { flex-grow: 1; }
+}

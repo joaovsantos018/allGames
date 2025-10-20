@@ -1,0 +1,101 @@
+/* CSS para o Estilo do Jogo */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+    overflow: hidden; /* Remove barra de rolagem */
+}
+
+.game-container {
+    display: flex;
+    flex-direction: row; /* <-- ADICIONADO: Força o layout lado a lado */
+    gap: 40px;
+    align-items: flex-start;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    
+    /* Reseta o que vem do global_style.css */
+    flex-grow: 0; 
+    overflow-y: hidden;
+}
+
+#grid-container {
+    display: grid;
+    /* Grid maior (45px) */
+    grid-template-columns: repeat(10, 45px);
+    grid-template-rows: repeat(10, 45px);
+    border: 2px solid #ccc;
+}
+
+.cell {
+    /* Células maiores (45px) */
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Fonte maior */
+    font-size: 1.4em; 
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.cell.selected {
+    background-color: #a0d8ef; /* Azul claro para seleção */
+}
+
+.cell.found {
+    background-color: #a8e6cf; /* Verde claro para palavras encontradas */
+    color: #fff;
+}
+
+.sidebar {
+    width: 200px;
+}
+
+h1 {
+    margin-top: 0;
+    /* Cor e borda alteradas para o verde padrão */
+    color: var(--cor-principal, #00843E);
+    border-bottom: 2px solid var(--cor-principal, #00843E);
+    padding-bottom: 10px;
+}
+
+#words-list {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1em;
+}
+
+#words-list li {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+#words-list li.found {
+    text-decoration: line-through;
+    color: #888;
+    background-color: #f0f0f0;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745;
+    text-align: center;
+    height: 30px;
+}

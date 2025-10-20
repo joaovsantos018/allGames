@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória: O Ciclo do Analista de Sistemas</title>
+    <link rel="stylesheet" href="../global_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <div id="start-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h1>Jogo da Memória de SISTEMAS</h1>
+            <p>Combine as cartas com os processos de um Analista de Sistemas para testar sua memória e conhecimento!</p>
+            <button id="start-button">COMEÇAR</button>
+        </div>
+    </div>
+
+    <div id="win-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h1>Parabéns, você venceu!</h1>
+            <p>Sua pontuação final foi:</p>
+            <h2 id="final-score" class="final-score">000</h2>
+            <div class="modal-buttons">
+                <button id="review-button" class="secondary">Revisar</button>
+                <button class="retry-button">Tentar Novamente</button>
+                <button id="next-game-button" style="display: none;">Próximo Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lose-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h1>Game Over!</h1>
+            <p>Você não conseguiu encontrar todos os pares. Que tal tentar mais uma vez?</p>
+            <button class="retry-button">Tentar Novamente</button>
+        </div>
+    </div>
+
+
+    <div class="game-wrapper">
+        <main class="game-container">
+            <header>
+                <h1>O Processo do Analista de Sistemas</h1>
+                <p>Combine a atividade com sua descrição para revelar o ciclo de desenvolvimento!</p>
+            </header>
+            <div class="memory-game">
+                </div>
+        </main>
+
+        <aside class="stats-panel">
+            <div class="stat-item">
+                <h2>Pontuação</h2>
+                <p id="score-value">1000</p> </div>
+            <div class="stat-item">
+                 <h2>Tentativas</h2>
+                 <p id="attempts-counter">15</p> </div>
+            <button id="restart-button" class="secondary">Reiniciar Jogo</button>
+            <button id="hint-button" class="secondary" disabled>Dica (3 Erros)</button>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

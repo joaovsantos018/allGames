@@ -1,0 +1,222 @@
+/* Seu CSS adaptado para o design circular */
+body {
+    background-color: #f8f9fa;
+    overflow-y: hidden; /* Remove scroll */
+}
+
+.container {
+    margin-top: 20px;
+}
+
+#container {
+    height: 700px; /* ATUALIZADO: Voltando ao tamanho original */
+    position: relative;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* --- DESIGN CIRCULAR (MAIOR) --- */
+.device {
+    width: 150px;  /* ATUALIZADO: Componente maior */
+    height: 150px; /* ATUALIZADO: Componente maior */
+    border-radius: 50%;
+    border: 4px dashed #adb5bd; /* Borda cinza inicial */
+    background-color: #fff; /* Fundo branco inicial */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+
+    text-align: center;
+    cursor: grab;
+    position: absolute; 
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+.device:active {
+    cursor: grabbing;
+    transform: scale(1.05);
+}
+.device img {
+    width: 60px; /* ATUALIZADO: Imagem maior */
+    height: 60px; /* ATUALIZADO: Imagem maior */
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+.device h5 {
+    font-size: 1rem; /* ATUALIZADO: Fonte maior */
+    font-weight: bold;
+    margin: 0;
+}
+.device p {
+    display: none;
+}
+
+/* --- ESTADOS DE COR --- */
+/* (Esta parte já estava correta e agora vai funcionar) */
+
+/* 1. Estado Conectado (VERDE) */
+.conectado {
+    border-style: solid;
+    border-color: #198754;
+    background-color: #e6ffed; /* Fundo verde claro */
+}
+
+/* 2. Estado "Próximo" (AZUL) */
+.destaque {
+    border-style: solid;
+    border-color: #0d6efd;
+    background-color: #e7f3ff; /* Fundo azul claro */
+    box-shadow: 0 0 10px 5px rgba(13, 110, 253, 0.5);
+    animation: pulse-blue 1.5s infinite;
+}
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(13, 110, 253, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(13, 110, 253, 0); }
+}
+
+/* 3. Estado "Erro" (VERMELHO) */
+.flash-red {
+    border-style: solid;
+    border-color: #dc3545;
+    background-color: #fff8f8; /* Fundo vermelho claro */
+    animation: flash-red-anim 0.5s ease-out;
+}
+@keyframes flash-red-anim {
+    0%, 100% { transform: scale(1); }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 5px rgba(220, 53, 69, 0.5);
+    }
+}
+/* --- FIM DOS ESTADOS DE COR --- */
+
+
+#svgCabo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+.cabo {
+    stroke: #0d6efd;
+    stroke-width: 4;
+    fill: none;
+    transition: stroke 0.3s ease;
+}
+.cabo.conectado {
+    stroke: #198754; /* Verde */
+}
+
+#mensagem {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    min-height: 24px;
+}
+
+.game-stats {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.2em;
+}
+
+/* Modal styles (sem alteração) */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+.modal-content h1 { margin-top: 0; color: #00843E; }
+.modal-content p { font-size: 1.1em; margin-bottom: 25px; }
+.modal-buttons { display: flex; gap: 15px; justify-content: center; }
+.modal-content button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #00843E;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.modal-content button:hover {
+    background-color: #005a2b;
+}
+
+/* Timeline/Explicações (sem alteração) */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #e9ecef;
+}
+.timeline-item {
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 30px;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #adb5bd; /* Ponto cinza padrão */
+    z-index: 1;
+}
+.timeline-item.active::before {
+    background: #0d6efd; /* Azul (Atual) */
+}
+.timeline-item.completed::before {
+    background: #198754; /* Verde (Completado) */
+}
+.timeline-item h5 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.timeline-item p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}

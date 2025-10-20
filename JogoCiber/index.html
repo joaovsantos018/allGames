@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caça-Palavras de Cibersegurança</title>
+    <link rel="stylesheet" href="../global_style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="start-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h1>Caça-Palavras: Cibersegurança</h1>
+            <p>Encontre as palavras relacionadas à segurança da informação escondidas no tabuleiro.</p>
+            <button id="start-button">COMEÇAR</button>
+        </div>
+    </div>
+
+    <div id="win-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h1>Parabéns!</h1>
+            <p>Você encontrou todas as palavras!</p>
+            <p>Pontuação:</p>
+            <h2 id="final-score" class="final-score">100</h2>
+            <div class="modal-buttons">
+                <button id="play-again-button">Jogar Novamente</button>
+                <button id="next-game-button" style="display: none;">Próximo Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div class="sidebar">
+            <h1>Cibersegurança</h1>
+            <ul id="words-list"></ul>
+            <div id="message"></div>
+        </div>
+
+        <div id="grid-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
