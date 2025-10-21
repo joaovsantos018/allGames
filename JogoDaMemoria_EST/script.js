@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartButton = document.getElementById('restart-button');
     const reviewButton = document.getElementById('review-button');
     const hintButton = document.getElementById('hint-button');
+    const modalnextGameButton = document.getElementById('modal-next-game-button');
     const nextGameButton = document.getElementById('next-game-button');
 
     // --- ESTADO DO JOGO ---
@@ -162,11 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
         winModal.classList.remove('hidden');
 
         if (isTrailMode) {
-            nextGameButton.style.display = 'inline-block';
+            modalnextGameButton.style.display = 'inline-block';
             retryButtons.forEach(btn => btn.style.display = 'none');
             restartButton.style.display = 'none';
         } else {
-            nextGameButton.style.display = 'none';
+            modalnextGameButton.style.display = 'none';
             retryButtons.forEach(btn => btn.style.display = 'inline-block');
         }
     }
@@ -199,7 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reviewButton.addEventListener('click', () => {
         winModal.classList.add('hidden');
-    });
+        nextGameButton.style.display = 'inline-block';
+        });
 
     hintButton.addEventListener('click', () => {
         if(hintButton.disabled) return;
@@ -219,6 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     });
     
+    modalnextGameButton.addEventListener('click', () => {
+        window.parent.postMessage({ type: 'gameEnd', score: score }, '*');
+    });
     nextGameButton.addEventListener('click', () => {
         window.parent.postMessage({ type: 'gameEnd', score: score }, '*');
     });
