@@ -113,7 +113,10 @@ h1 {
     align-items: center;
     z-index: 1000;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5e191de62bd735aea196cbed4afb246543f6f4cf
 .modal-content {
     background: white;
     padding: 30px;
@@ -122,7 +125,10 @@ h1 {
     width: 80%;
     max-width: 400px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5e191de62bd735aea196cbed4afb246543f6f4cf
 .hidden {
     display: none !important;
 }
