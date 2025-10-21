@@ -638,7 +638,7 @@ svg {
 .vagoes {
     display: flex;
     align-items: center;
-    height: 80px;
+    height: 50px;
 }
 .vagao {
     height: 100%;

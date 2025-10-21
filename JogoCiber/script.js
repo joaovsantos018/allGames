@@ -11,7 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Modais
     const startModal = document.getElementById('start-modal');
     const winModal = document.getElementById('win-modal');
-    
+    const explanationModal = document.getElementById('explanation-modal'); // NOVO
+    const explanationText = document.getElementById('explanation-text'); // NOVO
+    const explanationTitle = document.getElementById('explanation-title'); // NOVO
+    const explanationCloseButton = document.getElementById('explanation-close-button');
+
     // Botões
     const startButton = document.getElementById('start-button');
     const playAgainButton = document.getElementById('play-again-button');
@@ -25,6 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let selection = []; // Array para guardar as células selecionadas
     let wordsFoundCount = 0;
     const score = 100; // Score fixo por completar
+
+    const wordExplanations = {
+        'FIREWALL': 'Sistema de segurança que monitora e filtra o tráfego de rede, protegendo contra acessos não autorizados.',
+        'SENHA': 'Combinação secreta de caracteres usada para verificar a identidade de um usuário e garantir o acesso a sistemas.',
+        'VIRUS': 'Programa malicioso que se anexa a arquivos legítimos e se espalha, causando danos ou roubo de dados.',
+        'REDE': 'Conjunto de dispositivos interconectados que podem trocar dados e compartilhar recursos.',
+        'DADOS': 'Informações armazenadas ou processadas por um sistema, sendo o ativo mais importante a ser protegido.'
+    };
 
     // 1. Inicializa o jogo
     function init() {
@@ -152,27 +164,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 8. Verifica se a seleção do usuário forma uma palavra válida
-    function checkSelection() {
-        const selectedWord = selection.map(cell => cell.textContent).join('');
-        const selectedWordReversed = selectedWord.split('').reverse().join('');
+  // 8. Verifica se a seleção do usuário forma uma palavra válida
+function checkSelection() {
+    const selectedWord = selection.map(cell => cell.textContent).join('');
+    const selectedWordReversed = selectedWord.split('').reverse().join('');
 
-        const foundWord = wordsToFind.find(w => w === selectedWord || w === selectedWordReversed);
+    const foundWord = wordsToFind.find(w => w === selectedWord || w === selectedWordReversed);
 
-        if (foundWord && !document.getElementById(`word-${foundWord}`).classList.contains('found')) {
-            // Marcar células como encontradas
-            selection.forEach(cell => cell.classList.add('found'));
+    if (foundWord && !document.getElementById(`word-${foundWord}`).classList.contains('found')) {
+        
+        // NOVO: Exibe a explicação antes de marcar como encontrada
+        showExplanationModal(foundWord, wordExplanations[foundWord]);
 
-            // Marcar palavra na lista
-            const wordLi = document.getElementById(`word-${foundWord}`);
-            wordLi.classList.add('found');
-            wordsFoundCount++;
+        // Marcar células como encontradas
+        selection.forEach(cell => cell.classList.add('found'));
 
-            // Checar condição de vitória
-            if (wordsFoundCount === wordsToFind.length) {
-                endGame(); // Chama a função de fim de jogo
-            }
+        // Marcar palavra na lista
+        const wordLi = document.getElementById(`word-${foundWord}`);
+        wordLi.classList.add('found');
+        wordsFoundCount++;
+
+        // Checar condição de vitória (só é checada depois que a explicação é mostrada)
+        if (wordsFoundCount === wordsToFind.length) {
+            // Se esta for a última palavra, o endGame() será chamado
+            // assim que o jogador fechar a modal de explicação.
+            // *Manteremos o check de vitória na nova função de fechar modal.*
+            // Por enquanto, apenas removemos o endGame daqui.
         }
     }
+}
+
+
+
+
+    function showExplanationModal(word, explanation) {
+    explanationTitle.textContent = word;
+    explanationText.textContent = explanation;
+    explanationModal.classList.remove('hidden');
+}
 
     // 9. NOVA FUNÇÃO: Fim de Jogo
     function endGame() {
@@ -185,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         winModal.classList.remove('hidden');
     }
-    
+
     // --- INICIALIZAÇÃO E EVENTOS DOS MODAIS ---
 
     startButton.addEventListener('click', () => {
@@ -203,9 +232,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.parent.postMessage({ type: 'gameEnd', score: score }, '*');
     });
 
+
+    explanationCloseButton.addEventListener('click', () => {
+    explanationModal.classList.add('hidden');
+    
+    // VERIFICA SE O JOGO ACABOU AQUI
+    if (wordsFoundCount === wordsToFind.length) {
+        endGame();
+    }
+});
     // Adiciona os event listeners do mouse (só precisa fazer isso uma vez)
     addEventListeners();
-    
+
     // Mostra o modal de início ao carregar
     startModal.classList.remove('hidden');
 });
